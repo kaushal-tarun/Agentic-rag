@@ -17,6 +17,17 @@ def chatbot(state: AgentState):
         "response": f"You said: {message}"
     }
 
+def router(state: AgentState):
+    message = state["message"]
+
+    if any(op in message for op in ["+", "-", "*", "/"]):
+        return {
+            "route": "calculator"
+        }
+
+    return {
+        "route": "chat"
+    }
 
 graph = StateGraph(AgentState)
 
