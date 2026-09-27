@@ -1,24 +1,22 @@
 from langgraph.graph import StateGraph, END
 from backend.agents.agent import AgentState
 from backend.tools.calculator import calculator
-
+from backend.services.gemini_service import decide_route
 
 def chat_node(state: AgentState):
     return {
         "response": f"You said: {state['message']}"
     }
 
-def router(state: AgentState):
-    message = state["message"]
 
-    if any(op in message for op in ["+", "-", "*", "/"]):
-        return {
-            "route": "calculator"
-        }
+
+def router(state: AgentState):
+    decision = decide_route(state["message"])
 
     return {
-        "route": "chat"
+        "route": decision.route
     }
+
 
 def calculator_node(state: AgentState):
     result = calculator(state["message"])

@@ -1,5 +1,6 @@
+from typing import Literal
 from pydantic import BaseModel
 
 
 class RouteDecision(BaseModel):
-    route: str
+    route: Literal["calculator", "chat"]
