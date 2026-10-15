@@ -15,7 +15,7 @@ client = genai.Client(
 
 def decide_route(message: str) -> RouteDecision:
     response = client.models.generate_content(
-        model="gemini-3.7-flash",
+        model="gemini-3.6-flash",
         contents=f"""
 You are a router.
 
@@ -34,3 +34,12 @@ User message:
     )
 
     return response.parsed
+
+
+def answer_chat(message: str) -> str:
+    response = client.models.generate_content(
+        model="gemini-3.7-flash",
+        contents=message,
+    )
+
+    return response.text or "I couldn't generate a response."
