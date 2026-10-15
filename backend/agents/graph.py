@@ -2,10 +2,13 @@ from langgraph.graph import StateGraph, END
 from backend.agents.agent import AgentState
 from backend.tools.calculator import calculator
 from backend.services.gemini_service import decide_route
+from backend.services.gemini_service import answer_chat
 
 def chat_node(state: AgentState):
+    response = answer_chat(state["message"])
+    
     return {
-        "response": f"You said: {state['message']}"
+        "response": response
     }
 
 
